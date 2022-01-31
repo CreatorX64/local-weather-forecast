@@ -1,5 +1,5 @@
 {
-  "name": "weather-app",
+  "name": "local-weather-forecast",
   "private": true,
   "scripts": {
     "dev": "next dev",
