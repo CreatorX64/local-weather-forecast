@@ -1,11 +1,6 @@
 import Head from "next/head";
-import type { FC, ReactNode } from "react";
 
-type Props = {
-  children: ReactNode;
-};
-
-const Layout: FC<Props> = ({ children }) => {
+export default function Layout({ children }) {
   return (
     <>
       <Head>
@@ -17,13 +12,9 @@ const Layout: FC<Props> = ({ children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>
-        <h1>Layout page</h1>
-
+      <main className="hero flex min-h-screen items-center justify-center bg-[length:200px,300px] p-6 font-primary text-xl text-gray-800 sm:bg-[length:400px,600px]">
         {children}
-      </div>
+      </main>
     </>
   );
-};
-
-export default Layout;
+}
