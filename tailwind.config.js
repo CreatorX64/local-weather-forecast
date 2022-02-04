@@ -6,10 +6,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          light: "#53D2E3",
-          medium: "#24C9DF"
-        }
+        primary: "var(--color-primary)",
+        "primary-soft": "var(--color-primary-soft)"
       },
       fontFamily: {
         primary: "Rubik, sans-serif"

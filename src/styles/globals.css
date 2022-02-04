@@ -2,11 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap");
+@layer base {
+  @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap");
+
+  :root {
+    --color-neutral-400: theme("colors.fuchsia.400");
+    --color-neutral-500: theme("colors.fuchsia.500");
+    --color-cold-400: theme("colors.blue.400");
+    --color-cold-500: theme("colors.blue.500");
+    --color-warm-400: theme("colors.amber.400");
+    --color-warm-500: theme("colors.amber.500");
+  }
+
+  .theme-neutral {
+    --color-primary: var(--color-neutral-500);
+    --color-primary-soft: var(--color-neutral-400);
+
+    background: url("/bg-t-l-neutral.svg") left top no-repeat,
+      url("/bg-b-r-neutral.svg") right bottom no-repeat;
+  }
+
+  .theme-cold {
+    --color-primary: var(--color-cold-500);
+    --color-primary-soft: var(--color-cold-400);
+
+    background: url("/bg-t-l-cold.svg") left top no-repeat,
+      url("/bg-b-r-cold.svg") right bottom no-repeat;
+  }
+
+  .theme-warm {
+    --color-primary: var(--color-warm-500);
+    --color-primary-soft: var(--color-warm-400);
+
+    background: url("/bg-t-l-warm.svg") left top no-repeat,
+      url("/bg-b-r-warm.svg") right bottom no-repeat;
+  }
+}
 
 @layer components {
-  .hero {
-    background: url("/bg-t-l.svg") left top no-repeat,
-      url("/bg-b-r.svg") right bottom no-repeat;
+  .focusable {
+    @apply focus:outline-none focus:ring-4 focus:ring-purple-400;
   }
 }
