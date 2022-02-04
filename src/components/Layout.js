@@ -28,7 +28,7 @@ export default function Layout({ children }) {
       </Head>
 
       <main
-        className={`${themeClass} flex min-h-screen items-center justify-center bg-[length:200px,300px] p-9 font-primary text-base leading-relaxed text-gray-800 transition sm:bg-[length:400px,600px] sm:text-xl sm:leading-loose`}
+        className={`${themeClass} flex min-h-screen items-center justify-center bg-gray-50 bg-[length:200px,300px] p-9 font-primary text-base leading-relaxed text-gray-800 transition sm:bg-[length:400px,600px] sm:text-xl sm:leading-loose`}
       >
         {children}
       </main>
