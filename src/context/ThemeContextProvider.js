@@ -18,6 +18,5 @@ export default function ThemeContextProvider({ children }) {
 }
 
 export function useTheme() {
-  console.log(useContext(ThemeContext));
   return useContext(ThemeContext);
 }
