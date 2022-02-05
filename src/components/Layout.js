@@ -1,10 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from "../context/ThemeContextProvider";
+import { useAppContext } from "../context/AppContextProvider";
 
 export default function Layout({ children }) {
-  const { theme } = useTheme();
+  const { theme } = useAppContext();
 
   let themeClass = "theme-neutral";
   switch (theme) {
