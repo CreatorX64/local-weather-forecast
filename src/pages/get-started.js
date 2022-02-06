@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useAppContext } from "../context/AppContextProvider";
 import useLocation from "../hooks/useLocation";
 import Card from "../components/Card";
 import Loader from "../components/Loader";
@@ -9,15 +8,13 @@ import Loader from "../components/Loader";
 export default function GetStartedPage() {
   const { isLoading, error, location } = useLocation();
   const router = useRouter();
-  const { setLocalCoords } = useAppContext();
 
   useEffect(() => {
     if (!isLoading && location) {
       const { latitude, longitude } = location.coords;
-      setLocalCoords({ lat: latitude, lon: longitude });
       router.replace(`/forecast?lat=${latitude}&lon=${longitude}`);
     }
-  }, [location, router, isLoading, setLocalCoords]);
+  }, [location, router, isLoading]);
 
   return (
     <Card>

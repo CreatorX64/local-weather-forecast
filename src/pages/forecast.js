@@ -1,3 +1,5 @@
+import Card from "../components/Card";
+
 export function getServerSideProps(context) {
   const { lat, lon } = context.query;
 
@@ -11,8 +13,8 @@ export function getServerSideProps(context) {
 
 export default function ForecastPage() {
   return (
-    <div>
+    <Card>
       <p>This is the forecast page</p>
-    </div>
+    </Card>
   );
 }

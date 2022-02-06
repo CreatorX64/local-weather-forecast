@@ -1,9 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useAppContext } from "../context/AppContextProvider";
+import { useRouter } from "next/router";
 
 export default function HomePage() {
-  const { localCoords } = useAppContext();
+  const router = useRouter();
+
+  async function getStarted() {
+    const isPermissionGranted =
+      (await navigator.permissions.query({ name: "geolocation" })).state ===
+      "granted";
+
+    // If user already gave geolocation permissions before
+    if (isPermissionGranted) {
+      // Get current location & route to forecast page
+      navigator.geolocation.getCurrentPosition((pos) => {
+        router.push(
+          `/forecast?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`
+        );
+      });
+    } else {
+      // Route to permission page
+      router.push("/get-started");
+    }
+  }
 
   return (
     <div className="w-full max-w-md space-y-8 sm:max-w-xl sm:space-y-10 lg:max-w-2xl">
@@ -23,20 +42,15 @@ export default function HomePage() {
       </p>
 
       <div className="space-x-4 text-base sm:space-y-0 sm:space-x-8 sm:text-lg">
-        <Link
-          href={
-            localCoords
-              ? `/forecast?lat=${localCoords.lat}&lon=${localCoords.lon}`
-              : "/get-started"
-          }
+        <a
+          onClick={() => getStarted()}
+          className="group focusable cursor-pointer rounded-full bg-primary-soft px-4 py-2 text-white transition hover:bg-primary sm:px-7 sm:py-3"
         >
-          <a className="group focusable rounded-full bg-primary-soft px-4 py-2 text-white transition hover:bg-primary sm:px-7 sm:py-3">
-            Get started{" "}
-            <span className="inline-block transition group-hover:translate-x-1">
-              &rarr;
-            </span>
-          </a>
-        </Link>
+          Get started{" "}
+          <span className="inline-block transition group-hover:translate-x-1">
+            &rarr;
+          </span>
+        </a>
         <a
           href="https://github.com/creatorX64/local-weather-forecast"
           className="focusable text-gray-400 underline transition hover:text-gray-300"
