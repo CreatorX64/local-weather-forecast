@@ -1,17 +1,44 @@
+import fs from "fs";
+import path from "path";
 import Card from "../components/Card";
 
-export function getServerSideProps(context) {
-  const { lat, lon } = context.query;
+export async function getServerSideProps(context) {
+  // const { lat, lon } = context.query;
+  // const res = await fetch(
+  //   `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_STACK_API_KEY}&query=${lat},${lon}&units=m`
+  // );
+  // const data = await res.json();
 
-  // Talk to the weather API to get the forecast.
-  console.log(lat, lon);
+  // Load dummy response from local file to preserve API rate limit.
+  const data = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), "dummy.json"))
+  );
+
+  const weatherData = {
+    location: `${data.location.name}, ${data.location.region}, ${data.location.country}`,
+    observationTime: data.current.observation_time,
+    temperature: data.current.temperature,
+    description: data.current.weather_descriptions[0],
+    windSpeed: data.current.wind_speed,
+    pressure: data.current.pressure,
+    humidity: data.current.humidity,
+    cloudCover: data.current.cloudcover,
+    visibility: data.current.visibility,
+    isDay: data.current.is_day,
+    uvIndex: data.current.uv_index,
+    weatherCode: data.current.weather_code
+  };
 
   return {
-    props: {}
+    props: {
+      weatherData
+    }
   };
 }
 
-export default function ForecastPage() {
+export default function ForecastPage({ weatherData }) {
+  console.log(weatherData);
+
   return (
     <Card>
       <p>This is the forecast page</p>

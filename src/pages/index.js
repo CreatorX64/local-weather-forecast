@@ -1,28 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import useLocation from "../hooks/useLocation";
 
 export default function HomePage() {
-  const router = useRouter();
+  const { location, isLoading } = useLocation({ abort: true });
+  const [getStartedUrl, setGetStartedUrl] = useState("/get-started");
 
-  async function getStarted() {
-    const isPermissionGranted =
-      (await navigator.permissions.query({ name: "geolocation" })).state ===
-      "granted";
-
-    // If user already gave geolocation permissions before
-    if (isPermissionGranted) {
-      // Get current location & route to forecast page
-      navigator.geolocation.getCurrentPosition((pos) => {
-        router.push(
-          `/forecast?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`
-        );
-      });
-    } else {
-      // Route to permission page
-      router.push("/get-started");
+  useEffect(() => {
+    if (!isLoading && !location) {
+      // There's no current permission, route the user to the Get Started
+      // page on action click.
+      setGetStartedUrl("/get-started");
+    } else if (!isLoading && location) {
+      // There's current permission, so use the current location instead of
+      // going to the "Get Started" page. This prevents user from seeing a millisecond
+      // flash of the permission page, which is unpleasant.
+      setGetStartedUrl(
+        `/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}`
+      );
     }
-  }
+  }, [isLoading, location]);
 
   return (
     <div className="w-full max-w-md space-y-8 sm:max-w-xl sm:space-y-10 lg:max-w-2xl">
@@ -42,15 +40,14 @@ export default function HomePage() {
       </p>
 
       <div className="space-x-4 text-base sm:space-y-0 sm:space-x-8 sm:text-lg">
-        <a
-          onClick={() => getStarted()}
-          className="group focusable cursor-pointer rounded-full bg-primary-soft px-4 py-2 text-white transition hover:bg-primary sm:px-7 sm:py-3"
-        >
-          Get started{" "}
-          <span className="inline-block transition group-hover:translate-x-1">
-            &rarr;
-          </span>
-        </a>
+        <Link href={getStartedUrl}>
+          <a className="group focusable cursor-pointer rounded-full bg-primary-soft px-4 py-2 text-white transition hover:bg-primary sm:px-7 sm:py-3">
+            Get started{" "}
+            <span className="inline-block transition group-hover:translate-x-1">
+              &rarr;
+            </span>
+          </a>
+        </Link>
         <a
           href="https://github.com/creatorX64/local-weather-forecast"
           className="focusable text-gray-400 underline transition hover:text-gray-300"
