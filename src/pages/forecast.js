@@ -1,6 +1,9 @@
 import fs from "fs";
 import path from "path";
 import Card from "../components/Card";
+import weatherMeta from "../static/weatherCodes";
+import { useAppContext } from "../context/AppContextProvider";
+import { useEffect } from "react";
 
 export async function getServerSideProps(context) {
   // const { lat, lon } = context.query;
@@ -37,10 +40,20 @@ export async function getServerSideProps(context) {
 }
 
 export default function ForecastPage({ weatherData }) {
+  const { setTheme } = useAppContext();
+  const { Icon, theme } = weatherMeta.find(
+    (item) => weatherData.weatherCode === item.code
+  );
+
+  useEffect(() => {
+    setTheme(theme);
+  }, [setTheme, theme]);
+
   console.log(weatherData);
 
   return (
     <Card>
+      <Icon />
       <p>This is the forecast page</p>
     </Card>
   );

@@ -4,157 +4,168 @@ import {
   THEME_WARM
 } from "../context/AppContextProvider";
 
-const weatherCodes = [
+import CloudyIcon from "../icons/CloudyIcon";
+import MistyIcon from "../icons/MistyIcon";
+import PartlyCloudyIcon from "../icons/PartlyCloudyIcon";
+import RainyHeavyIcon from "../icons/RainyHeavyIcon";
+import RainySmallIcon from "../icons/RainySmallIcon";
+import SnowIcon from "../icons/SnowIcon";
+import SnowPatchyIcon from "../icons/SnowPatchyIcon";
+import SunnyIcon from "../icons/SunnyIcon";
+import ThunderIcon from "../icons/ThunderIcon";
+import WindyIcon from "../icons/WindyIcon";
+
+const weatherMeta = [
   {
     code: 113,
     name: "sunny",
-    icon: "",
+    Icon: SunnyIcon,
     theme: THEME_WARM
   },
   {
     code: 116,
     name: "partly cloudy",
-    icon: "",
+    Icon: PartlyCloudyIcon,
     theme: THEME_WARM
   },
   {
     code: 119,
     name: "cloudy",
-    icon: "",
+    Icon: CloudyIcon,
     theme: THEME_NEUTRAL
   },
   {
     code: 122,
     name: "overcast",
-    icon: "",
+    Icon: CloudyIcon,
     theme: THEME_COLD
   },
   {
     code: 143,
     name: "mist",
-    icon: "",
+    Icon: MistyIcon,
     theme: THEME_COLD
   },
   {
     code: 176,
     name: "patchy rain possible",
-    icon: "",
+    Icon: RainySmallIcon,
     theme: THEME_COLD
   },
   {
     code: 179,
     name: "patchy snow possible",
-    icon: "",
+    Icon: SnowPatchyIcon,
     theme: THEME_COLD
   },
   {
     code: 182,
     name: "patchy sleet possible",
-    icon: "",
+    Icon: SnowPatchyIcon,
     theme: THEME_COLD
   },
   {
     code: 185,
     name: "patchy freezing drizzle possible",
-    icon: "",
+    Icon: SnowPatchyIcon,
     theme: THEME_COLD
   },
   {
     code: 200,
     name: "thundery outbreaks possible",
-    icon: "",
+    Icon: ThunderIcon,
     theme: THEME_COLD
   },
   {
     code: 227,
     name: "blowing snow",
-    icon: "",
+    Icon: SnowIcon,
     theme: THEME_COLD
   },
   {
     code: 230,
     name: "blizzard",
-    icon: "",
+    Icon: WindyIcon,
     theme: THEME_COLD
   },
   {
     code: 248,
     name: "fog",
-    icon: "",
+    Icon: MistyIcon,
     theme: THEME_NEUTRAL
   },
   {
     code: 260,
     name: "freezing fog",
-    icon: "",
+    Icon: MistyIcon,
     theme: THEME_COLD
   },
   {
     code: 263,
     name: "patchy light drizzle",
-    icon: "",
+    Icon: RainySmallIcon,
     theme: THEME_COLD
   },
   {
     code: 266,
     name: "light drizzle",
-    icon: "",
+    Icon: RainySmallIcon,
     theme: THEME_NEUTRAL
   },
   {
     code: 281,
     name: "freezing drizzle",
-    icon: "",
+    Icon: RainyHeavyIcon,
     theme: THEME_COLD
   },
   {
     code: 284,
     name: "heavy freezing drizzle",
-    icon: "",
+    Icon: RainyHeavyIcon,
     theme: THEME_COLD
   },
   {
     code: 293,
     name: "patchy light rain",
-    icon: "",
+    Icon: RainySmallIcon,
     theme: THEME_NEUTRAL
   },
   {
     code: 296,
     name: "light rain",
-    icon: "",
+    Icon: RainySmallIcon,
     theme: THEME_NEUTRAL
   },
   {
     code: 299,
     name: "moderate rain at times",
-    icon: "",
+    Icon: RainySmallIcon,
     theme: THEME_NEUTRAL
   },
   {
     code: 302,
     name: "moderate rain",
-    icon: "",
+    Icon: RainySmallIcon,
     theme: THEME_NEUTRAL
   },
   {
     code: 305,
     name: "heavy rain at times",
-    icon: "",
+    Icon: RainyHeavyIcon,
     theme: THEME_COLD
   },
   {
     code: 308,
     name: "heavy rain",
-    icon: "",
+    Icon: RainyHeavyIcon,
     theme: THEME_COLD
   },
   {
     code: 311,
     name: "light freezing rain",
-    icon: "",
+    Icon: RainySmallIcon,
     theme: THEME_COLD
   }
 ];
 
-export default weatherCodes;
+export default weatherMeta;
