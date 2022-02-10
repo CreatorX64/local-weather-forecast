@@ -45,4 +45,5 @@ Based on the challenges & requirements of the project, I settled on the followin
 ## Credits
 
 - Weather icons by [Fatkhul Karim](https://www.iconfinder.com/fatkhulkarim)
+- Data point icons by [FontAwesome](https://fontawesome.com)
 - Loading icon by [EOS Icons](https://eos-icons.com/?iconName=bubble_loading&type=animated)

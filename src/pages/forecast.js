@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+// import fs from "fs";
+// import path from "path";
 import Link from "next/link";
 import { useEffect } from "react";
 import Card from "../components/Card";
@@ -17,31 +17,55 @@ import SunIcon from "../icons/SunIcon";
 import CloudIcon from "../icons/CloudIcon";
 import WindIcon from "../icons/WindIcon";
 
+// https://api.mapbox.com/geocoding/v5/mapbox.places/Istanbul.json?limit=1&access_token=pk.eyJ1IjoiY3JlYXRvcng2NCIsImEiOiJja3poN2x0am4ybnRjMnVvMWNlbnczYzl1In0.0Y53cqDfe4iKA_l8TKgZfQ
+
 export async function getServerSideProps(context) {
-  // const { lat, lon } = context.query;
-  // const res = await fetch(
-  //   `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_STACK_API_KEY}&query=${lat},${lon}`
-  // );
-  // const data = await res.json();
+  let { lat, lon, address } = context.query;
+
+  // If there's no lat lon && no address, redirect
+  if ((!lat || !lon) && !address) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "https://www.youtube.com/watch?v=Nj2U6rhnucI"
+      }
+    };
+  }
+
+  let resData;
+
+  if (lat & lon) {
+    // Get weather data.
+    const res = await fetch(
+      `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_STACK_API_KEY}&query=${lat},${lon}`
+    );
+
+    // If query is successful, set resData.
+    resData = await res.json();
+  } else {
+    // Geocode the address.
+    // If geocoding is successful, get weather data based on coords.
+    // If query is successful, set resData.
+  }
 
   // Load dummy response from local file to preserve API rate limit.
-  const data = JSON.parse(
-    fs.readFileSync(path.join(process.cwd(), "dummy.json"))
-  );
+  // const resData = JSON.parse(
+  //   fs.readFileSync(path.join(process.cwd(), "dummy.json"))
+  // );
 
   const weatherData = {
-    location: `${data.location.name}, ${data.location.region}, ${data.location.country}`,
-    observationTime: data.current.observation_time,
-    temperature: data.current.temperature,
-    description: data.current.weather_descriptions[0],
-    windSpeed: data.current.wind_speed,
-    pressure: data.current.pressure,
-    humidity: data.current.humidity,
-    cloudCover: data.current.cloudcover,
-    visibility: data.current.visibility,
-    isDay: data.current.is_day,
-    uvIndex: data.current.uv_index,
-    weatherCode: data.current.weather_code
+    location: `${resData.location.name}, ${resData.location.region}, ${resData.location.country}`,
+    observationTime: resData.current.observation_time,
+    temperature: resData.current.temperature,
+    description: resData.current.weather_descriptions[0],
+    windSpeed: resData.current.wind_speed,
+    pressure: resData.current.pressure,
+    humidity: resData.current.humidity,
+    cloudCover: resData.current.cloudcover,
+    visibility: resData.current.visibility,
+    isDay: resData.current.is_day !== "no",
+    uvIndex: resData.current.uv_index,
+    weatherCode: resData.current.weather_code
   };
 
   return {
@@ -53,7 +77,7 @@ export async function getServerSideProps(context) {
 
 export default function ForecastPage({ weatherData }) {
   const { setTheme } = useAppContext();
-  let { Icon } = weatherMeta.find(
+  let { Icon, NightIcon } = weatherMeta.find(
     (item) => weatherData.weatherCode === item.code
   );
   const {
@@ -65,7 +89,8 @@ export default function ForecastPage({ weatherData }) {
     uvIndex,
     visibility,
     windSpeed,
-    pressure
+    pressure,
+    isDay
   } = weatherData;
 
   console.log(weatherData);
@@ -86,7 +111,11 @@ export default function ForecastPage({ weatherData }) {
         <div className="flex h-full w-full flex-col items-center justify-start gap-8 sm:gap-10">
           <div>
             <p className="flex items-center justify-center space-x-3">
-              <Icon className="h-12 w-12 sm:h-20 sm:w-20" />
+              {isDay ? (
+                <Icon className="h-12 w-12 sm:h-20 sm:w-20" />
+              ) : (
+                <NightIcon className="h-12 w-12 sm:h-20 sm:w-20" />
+              )}
               <span className="text-5xl font-bold sm:text-7xl">
                 <span>{temperature}</span>
                 <sup className="text-2xl font-medium">°C</sup>
