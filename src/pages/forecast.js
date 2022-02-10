@@ -1,5 +1,5 @@
-// import fs from "fs";
-// import path from "path";
+import fs from "fs";
+import path from "path";
 import Link from "next/link";
 import { useEffect } from "react";
 import Card from "../components/Card";
@@ -16,8 +16,8 @@ import PressureIcon from "../icons/PressureIcon";
 import SunIcon from "../icons/SunIcon";
 import CloudIcon from "../icons/CloudIcon";
 import WindIcon from "../icons/WindIcon";
-
-// https://api.mapbox.com/geocoding/v5/mapbox.places/Istanbul.json?limit=1&access_token=pk.eyJ1IjoiY3JlYXRvcng2NCIsImEiOiJja3poN2x0am4ybnRjMnVvMWNlbnczYzl1In0.0Y53cqDfe4iKA_l8TKgZfQ
+import Head from "next/head";
+import DataPoint from "../components/DataPoint";
 
 export async function getServerSideProps(context) {
   let { lat, lon, address } = context.query;
@@ -32,26 +32,25 @@ export async function getServerSideProps(context) {
     };
   }
 
-  let resData;
+  // let resData;
 
   if (lat & lon) {
-    // Get weather data.
-    const res = await fetch(
-      `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_STACK_API_KEY}&query=${lat},${lon}`
-    );
-
-    // If query is successful, set resData.
-    resData = await res.json();
+    // Get weather data. If query is successful, set resData.
+    // const res = await fetch(
+    //   `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_STACK_API_KEY}&query=${lat},${lon}`
+    // );
+    // resData = await res.json();
   } else {
     // Geocode the address.
+    // https://api.mapbox.com/geocoding/v5/mapbox.places/Istanbul.json?limit=1&access_token=pk.eyJ1IjoiY3JlYXRvcng2NCIsImEiOiJja3poN2x0am4ybnRjMnVvMWNlbnczYzl1In0.0Y53cqDfe4iKA_l8TKgZfQ
     // If geocoding is successful, get weather data based on coords.
     // If query is successful, set resData.
   }
 
   // Load dummy response from local file to preserve API rate limit.
-  // const resData = JSON.parse(
-  //   fs.readFileSync(path.join(process.cwd(), "dummy.json"))
-  // );
+  const resData = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), "dummy-weather.json"))
+  );
 
   const weatherData = {
     location: `${resData.location.name}, ${resData.location.region}, ${resData.location.country}`,
@@ -76,7 +75,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function ForecastPage({ weatherData }) {
-  const { setTheme } = useAppContext();
+  const { theme, setTheme } = useAppContext();
   let { Icon, NightIcon } = weatherMeta.find(
     (item) => weatherData.weatherCode === item.code
   );
@@ -106,70 +105,118 @@ export default function ForecastPage({ weatherData }) {
   }, [setTheme, weatherData.temperature]);
 
   return (
-    <div className="w-full">
-      <Card>
-        <div className="flex h-full w-full flex-col items-center justify-start gap-8 sm:gap-10">
-          <div>
-            <p className="flex items-center justify-center space-x-3">
-              {isDay ? (
-                <Icon className="h-12 w-12 sm:h-20 sm:w-20" />
-              ) : (
-                <NightIcon className="h-12 w-12 sm:h-20 sm:w-20" />
-              )}
-              <span className="text-5xl font-bold sm:text-7xl">
-                <span>{temperature}</span>
-                <sup className="text-2xl font-medium">°C</sup>
-              </span>
-            </p>
-            <p className="mt-3 text-center font-bold">{description}</p>
-            <p className="text-center text-sm text-gray-400">{location}</p>
-          </div>
+    <>
+      <Head>
+        <script
+          async
+          src="https://platform.twitter.com/widgets.js"
+          charset="utf-8"
+        ></script>
+      </Head>
 
-          <ul className="grid grid-cols-1 gap-y-6 gap-x-8 text-base text-gray-700 sm:grid-cols-2">
-            <li className="space-x-2">
-              <HumidityIcon className="h-5 w-5 sm:h-6 sm:w-6" />{" "}
-              <span>
-                <span className="font-bold">{humidity}%</span> humidity
-              </span>
-            </li>
-            <li className="space-x-2">
-              <CloudIcon className="h-5 w-5 sm:h-6 sm:w-6" />{" "}
-              <span>
-                <span className="font-bold">{cloudCover}%</span> cloud cover
-              </span>
-            </li>
-            <li className="space-x-2">
-              <EyeIcon className="h-5 w-5 sm:h-6 sm:w-6" />{" "}
-              <span>
-                <span className="font-bold">{visibility} km</span> visibility
-              </span>
-            </li>
-            <li className="space-x-2">
-              <WindIcon className="h-5 w-5 sm:h-6 sm:w-6" />{" "}
-              <span>
-                <span className="font-bold">{windSpeed} km/h</span> wind speed
-              </span>
-            </li>
-            <li className="space-x-2">
-              <PressureIcon className="h-5 w-5 sm:h-6 sm:w-6" />{" "}
-              <span>
-                <span className="font-bold">{pressure} mbar</span> pressure
-              </span>
-            </li>
-            <li className="space-x-2">
-              <SunIcon className="h-5 w-5 sm:h-6 sm:w-6" />{" "}
-              <span>
-                <span className="font-bold">{uvIndex}</span> UV index
-              </span>
-            </li>
-          </ul>
-          <p className="mt-auto text-center text-base sm:text-lg">
-            <Link href="/">
-              <a className="link">Get weather for another location &rarr;</a>
-            </Link>
-          </p>
-        </div>
-      </Card>
-    </div>
+      <div className="w-full">
+        <Card>
+          <div className="flex h-full w-full flex-col items-center justify-start gap-8 sm:gap-10">
+            <div>
+              {/* Weather icon */}
+              <p className="flex items-center justify-center space-x-3">
+                {isDay ? (
+                  <Icon className="h-12 w-12 sm:h-20 sm:w-20" />
+                ) : (
+                  <NightIcon className="h-12 w-12 sm:h-20 sm:w-20" />
+                )}
+
+                {/* Temperature */}
+                <span className="flex items-start text-5xl font-bold sm:text-7xl">
+                  <span>{temperature}</span>
+                  <span className="text-2xl font-medium">°C</span>
+                </span>
+              </p>
+
+              {/* Description & location */}
+              <p className="mt-3 text-center font-bold">{description}</p>
+              <p className="text-center text-sm text-gray-400">{location}</p>
+            </div>
+
+            {/* Data points */}
+            <ul className="grid grid-cols-1 gap-y-6 gap-x-8 text-base text-gray-700 sm:grid-cols-2">
+              <DataPoint
+                Icon={HumidityIcon}
+                value={humidity}
+                unit="%"
+                text="humidity"
+              />
+              <DataPoint
+                Icon={CloudIcon}
+                value={cloudCover}
+                unit="%"
+                text="cloud cover"
+              />
+              <DataPoint
+                Icon={EyeIcon}
+                value={visibility}
+                unit="km"
+                text="visibility"
+              />
+              <DataPoint
+                Icon={WindIcon}
+                value={windSpeed}
+                unit="km/h"
+                text="wind speed"
+              />
+              <DataPoint
+                Icon={PressureIcon}
+                value={pressure}
+                unit="mbar"
+                text="pressure"
+              />
+              <DataPoint Icon={SunIcon} value={uvIndex} text="UV index" />
+            </ul>
+
+            {/* Manual search */}
+            <p className="mt-auto text-center text-base sm:text-lg">
+              <Link href="/">
+                <a className="link">Get weather for another location &rarr;</a>
+              </Link>
+            </p>
+          </div>
+        </Card>
+
+        {/* Social media action */}
+        <p className="mt-12 flex items-center justify-center gap-3 text-center text-sm text-gray-500">
+          {theme === THEME_COLD ? (
+            <>
+              <span>Guess there’ll be no going out today!</span>{" "}
+              <a
+                href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+                className="twitter-share-button"
+                data-text="The weather seems awful today! Who wants to come over?"
+                data-url="http://localhost:3000"
+                data-via="creatorX64"
+                data-show-count="false"
+              >
+                Tweet
+              </a>
+              <span>to invite people over 💃</span>
+            </>
+          ) : (
+            <>
+              <span>Looks like a nice day to hang out!</span>{" "}
+              <a
+                href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+                className="twitter-share-button"
+                data-text="The weather seems nice today! Who wants to hang out?"
+                data-url="http://localhost:3000"
+                data-via="creatorX64"
+                data-show-count="false"
+              >
+                Tweet
+              </a>
+              <span>to let your friends know 🎉</span>
+            </>
+          )}
+        </p>
+      </div>
+    </>
   );
 }
