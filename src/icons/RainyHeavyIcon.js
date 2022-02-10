@@ -6,7 +6,7 @@ export default function RainyHeavyIcon({ className = "" } = {}) {
       viewBox="0 0 32 32"
       width="32px"
       xmlns="http://www.w3.org/2000/svg"
-      className={`stroke-primary ${className}`}
+      className={`inline-block ${className}`}
     >
       <title />
       <desc />
@@ -20,7 +20,7 @@ export default function RainyHeavyIcon({ className = "" } = {}) {
       >
         <g
           id="Moderate-rain"
-          stroke="#979797"
+          className="stroke-primary"
           strokeWidth="2"
           transform="translate(3.000000, 2.000000)"
         >

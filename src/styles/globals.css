@@ -18,8 +18,15 @@
     --color-primary: var(--color-neutral-500);
     --color-primary-soft: var(--color-neutral-400);
 
+    /* We load all background images in-advance so that when theme is switched,
+    there's no flash between the new bg image and the old bg image due to the
+    loading time. */
     background: url("/bg-t-l-neutral.svg") left top no-repeat,
-      url("/bg-b-r-neutral.svg") right bottom no-repeat;
+      url("/bg-b-r-neutral.svg") right bottom no-repeat,
+      url("/bg-t-l-cold.svg") left top no-repeat,
+      url("/bg-b-r-cold.svg") right bottom no-repeat,
+      url("/bg-t-l-warm.svg") left top no-repeat,
+      url("/bg-b-r-warm.svg") right bottom no-repeat;
   }
 
   .theme-cold {
@@ -39,8 +46,14 @@
   }
 }
 
-@layer components {
+@layer utilities {
   .focusable {
     @apply focus:outline-none focus:ring-4 focus:ring-purple-400;
+  }
+}
+
+@layer components {
+  .link {
+    @apply focusable text-gray-400 transition hover:text-gray-300;
   }
 }

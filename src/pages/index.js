@@ -50,7 +50,7 @@ export default function HomePage() {
         </Link>
         <a
           href="https://github.com/creatorX64/local-weather-forecast"
-          className="focusable text-gray-400 underline transition hover:text-gray-300"
+          className="link"
           target="_blank"
           rel="noreferrer"
         >

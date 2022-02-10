@@ -6,7 +6,7 @@ export default function SnowPatchyIcon({ className = "" } = {}) {
       viewBox="0 0 32 32"
       width="32px"
       xmlns="http://www.w3.org/2000/svg"
-      className={`stroke-primary ${className}`}
+      className={`inline-block ${className}`}
     >
       <title />
       <desc />
@@ -20,7 +20,7 @@ export default function SnowPatchyIcon({ className = "" } = {}) {
       >
         <g
           id="Group-2"
-          stroke="#979797"
+          className="stroke-primary"
           strokeWidth="2"
           transform="translate(3.000000, 2.000000)"
         >
@@ -34,33 +34,45 @@ export default function SnowPatchyIcon({ className = "" } = {}) {
             strokeLinecap="round"
           />
         </g>
-        <circle cx="14" cy="29" id="Oval-10" r="1" stroke="#979797" />
-        <circle cx="22" cy="23" id="Oval-10" r="1" stroke="#979797" />
-        <circle cx="8.5" cy="22.5" id="Oval-10" r="1" stroke="#979797" />
-        <circle cx="18.5" cy="26.5" id="Oval-10" r="1" stroke="#979797" />
+        <circle cx="14" cy="29" id="Oval-10" r="1" className="stroke-primary" />
+        <circle cx="22" cy="23" id="Oval-10" r="1" className="stroke-primary" />
+        <circle
+          cx="8.5"
+          cy="22.5"
+          id="Oval-10"
+          r="1"
+          className="stroke-primary"
+        />
+        <circle
+          cx="18.5"
+          cy="26.5"
+          id="Oval-10"
+          r="1"
+          className="stroke-primary"
+        />
         <polygon
-          fill="#D8D8D8"
           id="Star-2"
           points="8 27 7 28.7320508 8 27 6 27 8 27 7 25.2679492 8 27 9 25.2679492 8 27 10 27 8 27 9 28.7320508"
           stroke="#979797"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className="stroke-primary"
         />
         <polygon
-          fill="#D8D8D8"
           id="Star-2"
           points="15 23 14 24.7320508 15 23 13 23 15 23 14 21.2679492 15 23 16 21.2679492 15 23 17 23 15 23 16 24.7320508"
           stroke="#979797"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className="stroke-primary"
         />
         <polygon
-          fill="#D8D8D8"
           id="Star-2"
           points="22 28 21 29.7320508 22 28 20 28 22 28 21 26.2679492 22 28 23 26.2679492 22 28 24 28 22 28 23 29.7320508"
           stroke="#979797"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className="stroke-primary"
         />
       </g>
     </svg>

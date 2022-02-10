@@ -6,7 +6,7 @@ export default function CloudyIcon({ className = "" } = {}) {
       viewBox="0 0 32 32"
       width="32px"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${className}`}
+      className={`inline-block ${className}`}
     >
       <title />
       <desc />
@@ -19,7 +19,7 @@ export default function CloudyIcon({ className = "" } = {}) {
         strokeWidth="1"
       >
         <g
-          stroke="#979797"
+          className="stroke-primary"
           strokeWidth="2"
           transform="translate(3.000000, 6.000000)"
         >

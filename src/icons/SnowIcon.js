@@ -6,7 +6,7 @@ export default function SnowIcon({ className = "" } = {}) {
       viewBox="0 0 32 32"
       width="32px"
       xmlns="http://www.w3.org/2000/svg"
-      className={`stroke-primary ${className}`}
+      className={`inline-block ${className}`}
     >
       <title />
       <desc />
@@ -14,7 +14,7 @@ export default function SnowIcon({ className = "" } = {}) {
       <g fill="none" fillRule="evenodd" id="Snow" stroke="none" strokeWidth="1">
         <g
           id="Group"
-          stroke="#979797"
+          className="stroke-primary"
           transform="translate(3.000000, 3.000000)"
         >
           <g>
