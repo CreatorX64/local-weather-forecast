@@ -83,58 +83,58 @@ export default function ForecastPage({ weatherData }) {
   return (
     <div className="w-full">
       <Card>
-        <div className="flex h-full w-full flex-col items-center justify-start gap-2 sm:gap-10">
+        <div className="flex h-full w-full flex-col items-center justify-start gap-8 sm:gap-10">
           <div>
             <p className="flex items-center justify-center space-x-3">
-              <Icon className="h-20 w-20" />
-              <span className="text-7xl font-bold">
+              <Icon className="h-12 w-12 sm:h-20 sm:w-20" />
+              <span className="text-5xl font-bold sm:text-7xl">
                 <span>{temperature}</span>
-                <sup className="text-4xl font-medium">°C</sup>
+                <sup className="text-2xl font-medium">°C</sup>
               </span>
             </p>
             <p className="mt-3 text-center font-bold">{description}</p>
             <p className="text-center text-sm text-gray-400">{location}</p>
           </div>
 
-          <ul className="grid grid-cols-2 gap-y-6 gap-x-8 text-base text-gray-700">
+          <ul className="grid grid-cols-1 gap-y-6 gap-x-8 text-base text-gray-700 sm:grid-cols-2">
             <li className="space-x-2">
-              <HumidityIcon className="h-6 w-6" />{" "}
+              <HumidityIcon className="h-5 w-5 sm:h-6 sm:w-6" />{" "}
               <span>
                 <span className="font-bold">{humidity}%</span> humidity
               </span>
             </li>
             <li className="space-x-2">
-              <CloudIcon className="h-6 w-6" />{" "}
+              <CloudIcon className="h-5 w-5 sm:h-6 sm:w-6" />{" "}
               <span>
                 <span className="font-bold">{cloudCover}%</span> cloud cover
               </span>
             </li>
             <li className="space-x-2">
-              <EyeIcon className="h-6 w-6" />{" "}
+              <EyeIcon className="h-5 w-5 sm:h-6 sm:w-6" />{" "}
               <span>
                 <span className="font-bold">{visibility} km</span> visibility
               </span>
             </li>
             <li className="space-x-2">
-              <WindIcon className="h-6 w-6" />{" "}
+              <WindIcon className="h-5 w-5 sm:h-6 sm:w-6" />{" "}
               <span>
                 <span className="font-bold">{windSpeed} km/h</span> wind speed
               </span>
             </li>
             <li className="space-x-2">
-              <PressureIcon className="h-6 w-6" />{" "}
+              <PressureIcon className="h-5 w-5 sm:h-6 sm:w-6" />{" "}
               <span>
                 <span className="font-bold">{pressure} mbar</span> pressure
               </span>
             </li>
             <li className="space-x-2">
-              <SunIcon className="h-6 w-6" />{" "}
+              <SunIcon className="h-5 w-5 sm:h-6 sm:w-6" />{" "}
               <span>
                 <span className="font-bold">{uvIndex}</span> UV index
               </span>
             </li>
           </ul>
-          <p className="mt-auto text-center text-lg">
+          <p className="mt-auto text-center text-base sm:text-lg">
             <Link href="/">
               <a className="link">Get weather for another location &rarr;</a>
             </Link>
