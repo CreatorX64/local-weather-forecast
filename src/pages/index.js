@@ -23,7 +23,7 @@ export default function HomePage() {
   }, [isLoading, location]);
 
   return (
-    <div className="w-full max-w-md space-y-8 sm:max-w-xl sm:space-y-10 lg:max-w-2xl">
+    <div className="w-full max-w-md space-y-8 text-center sm:max-w-xl sm:space-y-10 sm:text-left lg:max-w-2xl">
       <h1 className="text-3xl font-extrabold leading-tight transition sm:text-5xl sm:leading-none">
         Your local <span className="text-primary">weather,</span>
         <br />
@@ -58,7 +58,7 @@ export default function HomePage() {
         </a>
       </div>
 
-      <div className="flex translate-y-14 space-x-4 md:translate-y-20">
+      <div className="flex translate-y-14 justify-center space-x-4 sm:justify-start md:translate-y-20">
         <Link href="https://www.youtube.com/watch?v=liULcRi4n24">
           <a
             className="block w-32 opacity-90 transition hover:opacity-100 focus:opacity-100 focus:outline-none md:w-36"

@@ -61,6 +61,7 @@ export default function ForecastPage({ weatherData }) {
     description,
     humidity,
     cloudCover,
+    location,
     uvIndex,
     visibility,
     windSpeed,
@@ -82,63 +83,64 @@ export default function ForecastPage({ weatherData }) {
   return (
     <div className="w-full">
       <Card>
-        <div>
-          <p className="flex items-center justify-center space-x-3">
-            <Icon className="h-20 w-20" />
-            <span className="text-7xl font-bold">
-              <span>{temperature}</span>
-              <sup className="text-4xl font-medium">°C</sup>
-            </span>
+        <div className="flex h-full w-full flex-col items-center justify-start gap-2 sm:gap-10">
+          <div>
+            <p className="flex items-center justify-center space-x-3">
+              <Icon className="h-20 w-20" />
+              <span className="text-7xl font-bold">
+                <span>{temperature}</span>
+                <sup className="text-4xl font-medium">°C</sup>
+              </span>
+            </p>
+            <p className="mt-3 text-center font-bold">{description}</p>
+            <p className="text-center text-sm text-gray-400">{location}</p>
+          </div>
+
+          <ul className="grid grid-cols-2 gap-y-6 gap-x-8 text-base text-gray-700">
+            <li className="space-x-2">
+              <HumidityIcon className="h-6 w-6" />{" "}
+              <span>
+                <span className="font-bold">{humidity}%</span> humidity
+              </span>
+            </li>
+            <li className="space-x-2">
+              <CloudIcon className="h-6 w-6" />{" "}
+              <span>
+                <span className="font-bold">{cloudCover}%</span> cloud cover
+              </span>
+            </li>
+            <li className="space-x-2">
+              <EyeIcon className="h-6 w-6" />{" "}
+              <span>
+                <span className="font-bold">{visibility} km</span> visibility
+              </span>
+            </li>
+            <li className="space-x-2">
+              <WindIcon className="h-6 w-6" />{" "}
+              <span>
+                <span className="font-bold">{windSpeed} km/h</span> wind speed
+              </span>
+            </li>
+            <li className="space-x-2">
+              <PressureIcon className="h-6 w-6" />{" "}
+              <span>
+                <span className="font-bold">{pressure} mbar</span> pressure
+              </span>
+            </li>
+            <li className="space-x-2">
+              <SunIcon className="h-6 w-6" />{" "}
+              <span>
+                <span className="font-bold">{uvIndex}</span> UV index
+              </span>
+            </li>
+          </ul>
+          <p className="mt-auto text-center text-lg">
+            <Link href="/">
+              <a className="link">Get weather for another location &rarr;</a>
+            </Link>
           </p>
-          <p className="mt-3 text-center font-bold">{description}</p>
         </div>
-
-        <ul className="grid grid-cols-2 gap-y-4 gap-x-8 text-base text-gray-700">
-          <li className="space-x-2">
-            <HumidityIcon className="h-6 w-6" />{" "}
-            <span>
-              <span className="font-bold">{humidity}%</span> humidity
-            </span>
-          </li>
-          <li className="space-x-2">
-            <CloudIcon className="h-6 w-6" />{" "}
-            <span>
-              <span className="font-bold">{cloudCover}%</span> cloud cover
-            </span>
-          </li>
-          <li className="space-x-2">
-            <EyeIcon className="h-6 w-6" />{" "}
-            <span>
-              <span className="font-bold">{visibility} km</span> visibility
-            </span>
-          </li>
-          <li className="space-x-2">
-            <WindIcon className="h-6 w-6" />{" "}
-            <span>
-              <span className="font-bold">{windSpeed} km/h</span> wind speed
-            </span>
-          </li>
-          <li className="space-x-2">
-            <PressureIcon className="h-6 w-6" />{" "}
-            <span>
-              <span className="font-bold">{pressure} mbar</span> pressure
-            </span>
-          </li>
-          <li className="space-x-2">
-            <SunIcon className="h-6 w-6" />{" "}
-            <span>
-              <span className="font-bold">{uvIndex} UV</span> index
-            </span>
-          </li>
-        </ul>
-        <p className="mt-auto text-center text-lg">
-          <Link href="/">
-            <a className="link">Get weather for another location &rarr;</a>
-          </Link>
-        </p>
       </Card>
-
-      <p className="text-center">The suggested activity goes here</p>
     </div>
   );
 }

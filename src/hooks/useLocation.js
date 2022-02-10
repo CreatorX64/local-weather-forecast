@@ -43,9 +43,9 @@ export default function useLocation({ abort = false } = {}) {
 
     function error() {
       setIsLoading(false);
-      setError("Unable to retrieve your location.");
+      setError("You're gonna make this harder than it should be, aren't ya?");
     }
-  }, []);
+  }, [abort]);
 
   return { isLoading, error, location };
 }

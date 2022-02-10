@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import useLocation from "../hooks/useLocation";
 import Card from "../components/Card";
 import Loader from "../components/Loader";
+import Image from "next/image";
 
 export default function GetStartedPage() {
   const { isLoading, error, location } = useLocation();
@@ -20,19 +21,36 @@ export default function GetStartedPage() {
     <Card>
       <div className="flex h-full w-full items-center justify-center">
         {isLoading && (
-          <div className="space-y-8">
-            <Loader className="mx-auto h-20 w-20" />
-            <p className="font-medium">
+          <div className="space-y-8 py-12">
+            <Loader className="mx-auto h-14 w-14 sm:h-20 sm:w-20" />
+            <p className="text-center font-medium">
               Please give permission to location services.
             </p>
           </div>
         )}
 
         {error && (
-          <div>
-            <p>{error}</p>
+          <div className="space-y-8">
+            {/* <Image
+              src="/wot.gif"
+              width={534}
+              height={400}
+              alt="This is a waste of time"
+              className="w-full rounded-lg border border-gray-300"
+            /> */}
+            <div className="relative h-[220px] w-full overflow-hidden rounded-lg sm:h-[250px]">
+              <Image
+                src="/wot.gif"
+                layout="fill"
+                alt="This is a waste of time"
+                className="object-contain"
+              />
+            </div>
+            <p className="text-center font-medium">{error}</p>
             <Link href="/forecast-manual">
-              <a>Enter location manually</a>
+              <a className="link mt-4 block text-center">
+                Enter location manually &rarr;
+              </a>
             </Link>
           </div>
         )}
