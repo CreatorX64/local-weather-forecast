@@ -1,4 +1,6 @@
-export default function Loader({ className = "" }) {
+import PropTypes from "prop-types";
+
+function Loader({ className = "" }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -97,3 +99,9 @@ export default function Loader({ className = "" }) {
     </svg>
   );
 }
+
+Loader.propTypes = {
+  className: PropTypes.string
+};
+
+export default Loader;

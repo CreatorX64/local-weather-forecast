@@ -226,7 +226,7 @@ export default function ForecastPage({ weatherData }) {
         </Card>
 
         {/* Social media action */}
-        <p className="mt-12 flex items-center justify-center gap-3 text-center text-sm text-gray-500">
+        <p className="mt-12 hidden items-center justify-center gap-3 text-center text-sm text-gray-500 sm:flex">
           {theme === THEME_COLD ? (
             <>
               <span>Guess there’ll be no going out today!</span>{" "}

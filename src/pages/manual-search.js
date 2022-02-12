@@ -29,7 +29,7 @@ export default function ManualSearchPage() {
     <Card>
       <form className="flex h-full w-full flex-col items-stretch justify-start">
         <h1 className="mb-12 text-3xl font-bold">Manual Search</h1>
-        <div>
+        <div className="mb-4">
           <label htmlFor="address" className="mb-2 block font-medium">
             Enter your address
           </label>
