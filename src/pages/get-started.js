@@ -31,13 +31,6 @@ export default function GetStartedPage() {
 
         {error && (
           <div className="space-y-8">
-            {/* <Image
-              src="/wot.gif"
-              width={534}
-              height={400}
-              alt="This is a waste of time"
-              className="w-full rounded-lg border border-gray-300"
-            /> */}
             <div className="relative h-[220px] w-full overflow-hidden rounded-lg sm:h-[250px]">
               <Image
                 src="/wot.gif"
@@ -47,7 +40,7 @@ export default function GetStartedPage() {
               />
             </div>
             <p className="text-center font-medium">{error}</p>
-            <Link href="/forecast-manual">
+            <Link href="/manual-search">
               <a className="link mt-4 block text-center">
                 Enter location manually &rarr;
               </a>

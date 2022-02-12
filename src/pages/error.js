@@ -1,11 +1,30 @@
 import Link from "next/link";
 import Card from "../components/Card";
 
-export default function ErrorPage() {
+export function getServerSideProps(context) {
+  const { message } = context.query;
+
+  if (message) {
+    return {
+      props: {
+        message
+      }
+    };
+  } else {
+    return {
+      props: {
+        message:
+          "Cannot access weather services right now. Please try again later."
+      }
+    };
+  }
+}
+
+export default function ErrorPage({ message }) {
   return (
     <Card>
       <div className="flex h-full w-full flex-col items-center justify-center gap-10 text-center font-medium">
-        <p>Cannot access weather services right now. Please try again later.</p>
+        <p>{message}</p>
         <div>
           <p>
             <a className="link font-normal" href="mailto:creatorX64@gmail.com">

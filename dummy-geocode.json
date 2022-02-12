@@ -7,19 +7,14 @@
       "type": "Feature",
       "place_type": ["region", "place"],
       "relevance": 1,
-      "properties": {
-        "wikidata": "Q406"
-      },
+      "properties": { "wikidata": "Q406" },
       "text": "Istanbul",
       "place_name": "Istanbul, Turkey",
       "bbox": [
         27.9713060032257, 40.6806532000239, 29.9586459997842, 41.628802993135
       ],
       "center": [28.96028, 41.01],
-      "geometry": {
-        "type": "Point",
-        "coordinates": [28.96028, 41.01]
-      },
+      "geometry": { "type": "Point", "coordinates": [28.96028, 41.01] },
       "context": [
         {
           "id": "country.12740899366176230",

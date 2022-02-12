@@ -1,8 +1,13 @@
 // import fs from "fs";
 // import path from "path";
 import Link from "next/link";
+import Head from "next/head";
 import { useEffect } from "react";
+
 import Card from "../components/Card";
+import DataPoint from "../components/DataPoint";
+import { geocodeAddress, getForecast } from "../lib/weather";
+import AppError from "../lib/AppError";
 import weatherMeta from "../static/weatherMeta";
 import {
   THEME_COLD,
@@ -16,8 +21,6 @@ import PressureIcon from "../icons/PressureIcon";
 import SunIcon from "../icons/SunIcon";
 import CloudIcon from "../icons/CloudIcon";
 import WindIcon from "../icons/WindIcon";
-import Head from "next/head";
-import DataPoint from "../components/DataPoint";
 
 export async function getServerSideProps(context) {
   let { lat, lon, address } = context.query;
@@ -35,29 +38,55 @@ export async function getServerSideProps(context) {
   let resData;
 
   if (lat & lon) {
-    // Get weather data. If query is successful, set resData.
-    const res = await fetch(
-      `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_STACK_API_KEY}&query=${lat},${lon}`
-    );
+    try {
+      resData = await getForecast(lat, lon);
+    } catch (error) {
+      const destination =
+        error instanceof AppError
+          ? `/error?message=${error.message}`
+          : "/error";
 
-    resData = await res.json();
-
-    // if(!resData.success) { ... } doesn't work, because in the success case
-    // there's not "success" property in the resData making it "undefined",
-    // which makes the if block run in all cases. So I exclusively check for "false".
-    if (resData.success === false) {
       return {
         redirect: {
           permanent: false,
-          destination: "/error"
+          destination
         }
       };
     }
   } else {
     // Geocode the address.
-    // https://api.mapbox.com/geocoding/v5/mapbox.places/Istanbul.json?limit=1&access_token=pk.eyJ1IjoiY3JlYXRvcng2NCIsImEiOiJja3poN2x0am4ybnRjMnVvMWNlbnczYzl1In0.0Y53cqDfe4iKA_l8TKgZfQ
-    // If geocoding is successful, get weather data based on coords.
-    // If query is successful, set resData.
+    try {
+      [lat, lon] = await geocodeAddress(address);
+    } catch (error) {
+      const destination =
+        error instanceof AppError
+          ? `/error?message=${error.message}`
+          : "/error";
+
+      return {
+        redirect: {
+          permanent: false,
+          destination
+        }
+      };
+    }
+
+    // Geocoding is successful, get weather data based on coords.
+    try {
+      resData = await getForecast(lat, lon);
+    } catch (error) {
+      const destination =
+        error instanceof AppError
+          ? `/error?message=${error.message}`
+          : "/error";
+
+      return {
+        redirect: {
+          permanent: false,
+          destination
+        }
+      };
+    }
   }
 
   // Load dummy response from local file to preserve API rate limit.
@@ -66,7 +95,7 @@ export async function getServerSideProps(context) {
   // );
 
   const weatherData = {
-    location: `${resData.location.name}, ${resData.location.region}, ${resData.location.country}`,
+    location: `${resData.location.region}, ${resData.location.country}`,
     observationTime: resData.current.observation_time,
     temperature: resData.current.temperature,
     description: resData.current.weather_descriptions[0],
@@ -189,7 +218,7 @@ export default function ForecastPage({ weatherData }) {
 
             {/* Manual search */}
             <p className="mt-auto text-center text-base sm:text-lg">
-              <Link href="/">
+              <Link href="/manual-search">
                 <a className="link">Get weather for another location &rarr;</a>
               </Link>
             </p>
