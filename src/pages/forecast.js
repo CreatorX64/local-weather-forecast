@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+// import fs from "fs";
+// import path from "path";
 import Link from "next/link";
 import { useEffect } from "react";
 import Card from "../components/Card";
@@ -22,24 +22,37 @@ import DataPoint from "../components/DataPoint";
 export async function getServerSideProps(context) {
   let { lat, lon, address } = context.query;
 
-  // If there's no lat lon && no address, redirect
+  // If there's no lat lon AND no address...
   if ((!lat || !lon) && !address) {
     return {
       redirect: {
         permanent: false,
-        destination: "https://www.youtube.com/watch?v=Nj2U6rhnucI"
+        destination: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
       }
     };
   }
 
-  // let resData;
+  let resData;
 
   if (lat & lon) {
     // Get weather data. If query is successful, set resData.
-    // const res = await fetch(
-    //   `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_STACK_API_KEY}&query=${lat},${lon}`
-    // );
-    // resData = await res.json();
+    const res = await fetch(
+      `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_STACK_API_KEY}&query=${lat},${lon}`
+    );
+
+    resData = await res.json();
+
+    // if(!resData.success) { ... } doesn't work, because in the success case
+    // there's not "success" property in the resData making it "undefined",
+    // which makes the if block run in all cases. So I exclusively check for "false".
+    if (resData.success === false) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/error"
+        }
+      };
+    }
   } else {
     // Geocode the address.
     // https://api.mapbox.com/geocoding/v5/mapbox.places/Istanbul.json?limit=1&access_token=pk.eyJ1IjoiY3JlYXRvcng2NCIsImEiOiJja3poN2x0am4ybnRjMnVvMWNlbnczYzl1In0.0Y53cqDfe4iKA_l8TKgZfQ
@@ -48,9 +61,9 @@ export async function getServerSideProps(context) {
   }
 
   // Load dummy response from local file to preserve API rate limit.
-  const resData = JSON.parse(
-    fs.readFileSync(path.join(process.cwd(), "dummy-weather.json"))
-  );
+  // const resData = JSON.parse(
+  //   fs.readFileSync(path.join(process.cwd(), "dummy-weather.json"))
+  // );
 
   const weatherData = {
     location: `${resData.location.name}, ${resData.location.region}, ${resData.location.country}`,
@@ -76,9 +89,7 @@ export async function getServerSideProps(context) {
 
 export default function ForecastPage({ weatherData }) {
   const { theme, setTheme } = useAppContext();
-  let { Icon, NightIcon } = weatherMeta.find(
-    (item) => weatherData.weatherCode === item.code
-  );
+
   const {
     temperature,
     description,
@@ -89,20 +100,23 @@ export default function ForecastPage({ weatherData }) {
     visibility,
     windSpeed,
     pressure,
+    weatherCode,
     isDay
   } = weatherData;
 
-  console.log(weatherData);
+  let { Icon, NightIcon } = weatherMeta.find(
+    (item) => weatherCode === item.code
+  );
 
   useEffect(() => {
     let theme = THEME_NEUTRAL;
-    if (weatherData.temperature < 20) {
+    if (temperature < 20) {
       theme = THEME_COLD;
     } else {
       theme = THEME_WARM;
     }
     setTheme(theme);
-  }, [setTheme, weatherData.temperature]);
+  }, [setTheme, temperature]);
 
   return (
     <>
@@ -197,7 +211,7 @@ export default function ForecastPage({ weatherData }) {
               >
                 Tweet
               </a>
-              <span>to invite people over 💃</span>
+              <span>to invite people over 🎉</span>
             </>
           ) : (
             <>
