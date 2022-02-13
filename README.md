@@ -1,4 +1,6 @@
-# Local Weather 🌤 (ongoing project!)
+# Local Weather 🌤
+
+[Access the application](https://local-weather-forecast.vercel.app/)
 
 This is a web application where users can view their local weather. The weather information is presented in multiple data points like the temperature, humidity, rain probability, and so on.
 
