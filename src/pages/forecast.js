@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Head from "next/head";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 import Card from "../components/Card";
 import DataPoint from "../components/DataPoint";
@@ -14,6 +15,7 @@ import {
   THEME_NEUTRAL,
   useAppContext
 } from "../context/AppContextProvider";
+import { fadeInUpParent, fadeInUpChild, fadeInUp } from "../static/animation";
 
 import HumidityIcon from "../icons/HumidityIcon";
 import EyeIcon from "../icons/EyeIcon";
@@ -159,8 +161,13 @@ export default function ForecastPage({ weatherData }) {
 
       <div className="w-full">
         <Card>
-          <div className="flex h-full w-full flex-col items-center justify-start gap-8 sm:gap-10">
-            <div>
+          <motion.div
+            className="flex h-full w-full flex-col items-center justify-start gap-8 sm:gap-10"
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUpParent}
+          >
+            <motion.div variants={fadeInUpChild}>
               {/* Weather icon */}
               <p className="flex items-center justify-center space-x-3">
                 {isDay ? (
@@ -179,10 +186,13 @@ export default function ForecastPage({ weatherData }) {
               {/* Description & location */}
               <p className="mt-3 text-center font-bold">{description}</p>
               <p className="text-center text-sm text-gray-400">{location}</p>
-            </div>
+            </motion.div>
 
             {/* Data points */}
-            <ul className="grid grid-cols-1 gap-y-6 gap-x-8 text-base text-gray-700 sm:grid-cols-2">
+            <motion.ul
+              className="grid grid-cols-1 gap-y-6 gap-x-8 text-base text-gray-700 sm:grid-cols-2"
+              variants={fadeInUpChild}
+            >
               <DataPoint
                 Icon={HumidityIcon}
                 value={humidity}
@@ -214,19 +224,27 @@ export default function ForecastPage({ weatherData }) {
                 text="pressure"
               />
               <DataPoint Icon={SunIcon} value={uvIndex} text="UV index" />
-            </ul>
+            </motion.ul>
 
             {/* Manual search */}
-            <p className="mt-auto text-center text-base sm:text-lg">
+            <motion.p
+              className="mt-auto text-center text-base sm:text-lg"
+              variants={fadeInUpChild}
+            >
               <Link href="/manual-search">
                 <a className="link">Get weather for another location &rarr;</a>
               </Link>
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </Card>
 
         {/* Social media action */}
-        <p className="mt-12 hidden items-center justify-center gap-3 text-center text-sm text-gray-500 sm:flex">
+        <motion.p
+          className="mt-12 hidden items-center justify-center gap-3 text-center text-sm text-gray-500 opacity-0 sm:flex"
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+        >
           {theme === THEME_COLD ? (
             <>
               <span>Guess there’ll be no going out today!</span>{" "}
@@ -258,7 +276,7 @@ export default function ForecastPage({ weatherData }) {
               <span>to let your friends know 🎉</span>
             </>
           )}
-        </p>
+        </motion.p>
       </div>
     </>
   );
