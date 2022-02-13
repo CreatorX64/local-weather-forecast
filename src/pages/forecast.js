@@ -239,7 +239,7 @@ export default function ForecastPage({ weatherData }) {
         </Card>
 
         {/* Social media action */}
-        <motion.p
+        {/* <motion.p
           className="mt-12 hidden items-center justify-center gap-3 text-center text-sm text-gray-500 opacity-0 sm:flex"
           initial="hidden"
           animate="visible"
@@ -276,7 +276,7 @@ export default function ForecastPage({ weatherData }) {
               <span>to let your friends know 🎉</span>
             </>
           )}
-        </motion.p>
+        </motion.p> */}
       </div>
     </>
   );
