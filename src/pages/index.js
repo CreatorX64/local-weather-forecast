@@ -76,7 +76,7 @@ export default function HomePage() {
       </motion.div>
 
       <motion.div
-        className="flex justify-center space-x-4 sm:justify-start md:translate-y-[80px]"
+        className="md:translate-y-60px flex justify-center space-x-4 sm:justify-start"
         variants={fadeInUpChild80}
       >
         <Link href="https://www.youtube.com/watch?v=liULcRi4n24">

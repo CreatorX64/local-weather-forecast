@@ -28,11 +28,11 @@ export const fadeInUpChild = {
 export const fadeInUpChild80 = {
   hidden: {
     opacity: 0,
-    y: 85
+    y: 65
   },
   visible: {
     opacity: 1,
-    y: 80
+    y: 60
   }
 };
 
