@@ -13,6 +13,7 @@ import weatherMeta from "../static/weatherMeta";
 import {
   THEME_COLD,
   THEME_NEUTRAL,
+  THEME_WARM,
   useAppContext
 } from "../context/AppContextProvider";
 import { fadeInUpParent, fadeInUpChild, fadeInUp } from "../static/animation";

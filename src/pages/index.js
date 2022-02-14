@@ -3,7 +3,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import useLocation from "../hooks/useLocation";
-import { fadeInUpParent, fadeInUpChild } from "../static/animation";
+import {
+  fadeInUpParent,
+  fadeInUpChild,
+  fadeInUpChild80
+} from "../static/animation";
 
 export default function HomePage() {
   const { location, isLoading } = useLocation({ abort: true });
@@ -72,8 +76,8 @@ export default function HomePage() {
       </motion.div>
 
       <motion.div
-        className="mt-36 flex justify-center space-x-4 sm:justify-start md:translate-y-20"
-        variants={fadeInUpChild}
+        className="flex justify-center space-x-4 sm:justify-start md:translate-y-[80px]"
+        variants={fadeInUpChild80}
       >
         <Link href="https://www.youtube.com/watch?v=liULcRi4n24">
           <a
