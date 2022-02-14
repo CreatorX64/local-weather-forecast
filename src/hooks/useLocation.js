@@ -23,9 +23,10 @@ export default function useLocation({ abort = false } = {}) {
       setIsLoading(true);
 
       // If there's no current permission AND abort prop is true, set loading
-      // state to false and set location state to null.
+      // state to false and set location state to null. I use "?." to use
+      // Permissions API because iOS devices don't support it.
       navigator.permissions
-        .query({ name: "geolocation" })
+        ?.query({ name: "geolocation" })
         .then((permissionStatus) => {
           if (permissionStatus.state !== "granted" && abort) {
             setIsLoading(false);
